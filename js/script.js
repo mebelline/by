@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // Theme from localStorage
-  const storedTheme = localStorage.getItem("zenmebel-theme");
+  const storedTheme = localStorage.getItem("mebelline-theme");
   if (storedTheme === "dark") {
     document.body.classList.add("dark");
   }
@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
     themeToggle.addEventListener("click", () => {
       document.body.classList.toggle("dark");
       localStorage.setItem(
-        "zenmebel-theme",
+        "mebelline-theme",
         document.body.classList.contains("dark") ? "dark" : "light"
       );
     });
@@ -49,15 +49,15 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // Lead form -> copy text
+  // Lead form -> send text to hidden field for Telegram Bot API
   if (leadForm) {
-    leadForm.addEventListener("submit", (e) => {
-      e.preventDefault();
+    leadForm.addEventListener("submit", () => {
       const name = document.getElementById("name").value.trim();
       const contact = document.getElementById("contact").value.trim();
       const task = document.getElementById("task").value.trim();
+      const textField = document.getElementById("telegramText");
 
-      let text = "Здравствуйте! Пишу по поводу мебели на заказ.\n\n";
+      let text = "Здравствуйте! Пишу по поводу мебели.\n\n";
       if (name) text += `Имя: ${name}\n`;
       if (contact) text += `Контакт: ${contact}\n`;
       if (task) {
@@ -66,14 +66,10 @@ document.addEventListener("DOMContentLoaded", () => {
         text += "\nЗадача: кухня/шкаф/стол (опишите, что нужно).";
       }
 
-      navigator.clipboard
-        .writeText(text)
-        .then(() => {
-          alert("Текст заявки скопирован. Вставьте его в Telegram или WhatsApp и отправьте Евгению.");
-        })
-        .catch(() => {
-          alert("Не получилось автоматически скопировать текст. Выделите и скопируйте его вручную: \n\n" + text);
-        });
+      if (textField) {
+        textField.value = text;
+      }
+      // Форма отправится на Telegram Bot API через стандартный submit
     });
   }
 });
