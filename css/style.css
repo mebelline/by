@@ -961,10 +961,16 @@ footer,
 
 .ar-content {
   display: flex;
-  flex-wrap: wrap;
   gap: 26px;
   align-items: stretch;
 }
+
+@media (max-width: 900px) {
+  .ar-content {
+    flex-direction: column;
+  }
+}
+
 
 .ar-text {
   flex: 1 1 320px;
