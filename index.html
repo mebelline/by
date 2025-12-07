@@ -377,11 +377,28 @@
         </div>
 
         <div class="ar-viewer-card">
-          <div class="ar-item-label">Скоро</div>
-          <div class="ar-item-title">Кухни, ТВ-зоны и нестандартные решения</div>
-          <p>
-            Мы готовим дополнительные 3D / AR-модели. Здесь будут появляться новые проекты — 
-            чтобы вы могли примерить разные типы мебели в своём интерьере перед заказом.
+          <div class="ar-item-label">Новый проект</div>
+          <div class="ar-item-title">Шкаф-прихожая с тумбой</div>
+          <model-viewer
+            src="models/wardrobe1.glb"
+            alt="3D-модель шкафа-прихожей Mebel Line"
+            ar
+            ar-modes="scene-viewer webxr quick-look"
+            camera-controls
+            environment-image="neutral"
+            exposure="1.1"
+            shadow-intensity="0.6"
+            disable-zoom="false"
+            autoplay
+            style="width: 100%; height: 260px; border-radius: 18px; overflow: hidden;"
+          >
+          </model-viewer>
+
+          <button class="ar-button" onclick="enterAR(this)">
+            Посмотреть в AR
+          </button>
+          <p class="ar-hint">
+            Откройте этот раздел на современном смартфоне — вы сможете «поставить» модель в своей прихожей и оценить габариты.
           </p>
         </div>
       </div>
