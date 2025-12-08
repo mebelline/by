@@ -318,6 +318,7 @@
       </div>
     </section>
 
+
 <section id="ar" class="section section-ar">
   <div class="container">
     <div class="section-header">
@@ -325,90 +326,89 @@
         <div class="section-kicker">3D и дополненная реальность</div>
         <h2>Посмотрите мебель Mebel Line в своём интерьере</h2>
         <p class="section-sub">
-          Для ключевых позиций мы можем подготовить 3D-модели. Их можно покрутить прямо на сайте, а на смартфоне — включить AR-режим
+          Для ключевых позиций мы подготавливаем 3D‑модели. Их можно покрутить прямо на сайте, а на смартфоне — включить AR‑режим
           и «поставить» мебель в комнате, чтобы сразу увидеть масштаб и посадку в пространстве.
         </p>
       </div>
     </div>
 
     <div class="ar-content">
-            <div class="ar-text">
+      <div class="ar-text">
         <h3>Примеры в 3D и AR</h3>
         <p>
-          Здесь вы можете увидеть, как мебель Mebel Line будет выглядеть в реальном пространстве: 
-          покрутить модель, оценить пропорции и через смартфон примерить её к своей комнате в режиме дополненной реальности.
+          Откройте один из проектов, чтобы посмотреть детали: пропорции, глубину, работу фасадов и наполнение.
         </p>
         <ul class="ar-benefits">
-          <li>Реальные пропорции и размеры мебели</li>
-          <li>Понимание, как объект встанет относительно стен и других предметов</li>
-          <li>Современный формат сервиса — как у крупных мебельных брендов</li>
+          <li>Реальные пропорции и размеры мебели.</li>
+          <li>Понимание, как объект встанет относительно стен и других предметов.</li>
+          <li>Современный формат сервиса — как у крупных мебельных брендов.</li>
         </ul>
+
+        <div class="ar-projects">
+          <button
+            class="ar-project-pill is-active"
+            type="button"
+            data-src="models/wardrobe-modern.glb"
+            data-title="Шкаф-прихожая с тумбой"
+            data-desc="Функциональная прихожая с тумбой, местом для одежды и закрытым хранением."
+            data-hint="Откройте этот раздел на современном смартфоне — вы сможете «поставить» шкаф-прихожую у своей стены."
+          >
+            Прихожая
+          </button>
+          <button
+            class="ar-project-pill"
+            type="button"
+            data-src="models/wardrobe1.glb"
+            data-title="Шкаф-купе для спальни"
+            data-desc="Современный шкаф-купе с продуманным внутренним наполнением и спокойным фасадом."
+            data-hint="На смартфоне можно оценить, как шкаф-купе впишется в комнату и не перегрузит пространство."
+          >
+            Шкаф-купе
+          </button>
+        </div>
+
         <p class="ar-note">
-          В этом разделе мы будем постепенно собирать ключевые проекты: кухни, гардеробные, ТВ-зоны, столы и нестандартные решения — 
-          чтобы вы могли увидеть каждую модель в масштабе 1:1 прямо у себя дома.
+          Раздел будет пополняться: кухни, гардеробные, ТВ-зоны, столы и нестандартные решения — всё в масштабе 1:1 прямо у вас дома.
         </p>
       </div>
 
-            <div class="ar-items">
-        <div class="ar-viewer-card">
-          <div class="ar-item-label">Пример проекта</div>
-          <div class="ar-item-title">Шкаф / шкаф-купе</div>
-          <model-viewer
-            src="models/wardrobe-modern.glb"
-            alt="3D-модель шкафа Mebel Line"
-            ar
-            ar-modes="scene-viewer webxr quick-look"
-            camera-controls
-            environment-image="neutral"
-            exposure="1.1"
-            shadow-intensity="0.6"
-            disable-zoom="false"
-            autoplay
-            style="width: 100%; height: 260px; border-radius: 18px; overflow: hidden;"
-          >
-          </model-viewer>
+      <div class="ar-viewer-card">
+        <model-viewer
+          id="mainArViewer"
+          class="ar-viewer"
+          src="models/wardrobe-modern.glb"
+          alt="3D-модель шкафа-прихожей Mebel Line"
+          ar
+          ar-modes="scene-viewer webxr quick-look"
+          camera-controls
+          environment-image="neutral"
+          exposure="1.1"
+          shadow-intensity="0.6"
+          disable-zoom="false"
+          autoplay
+        >
+        </model-viewer>
 
-          <button class="ar-button" onclick="enterAR(this)">
-            Посмотреть в AR
-          </button>
-          <p class="ar-hint">
-            Откройте сайт на современном смартфоне и нажмите кнопку — система предложит разместить модель в комнате.
+        <div class="ar-viewer-caption">
+          <h3 id="arProjectTitle">Шкаф-прихожая с тумбой</h3>
+          <p id="arProjectDesc">
+            Функциональная прихожая с тумбой, местом для одежды и закрытым хранением.
           </p>
         </div>
 
-        <div class="ar-viewer-card">
-          <div class="ar-item-label">Новый проект</div>
-          <div class="ar-item-title">Шкаф-прихожая с тумбой</div>
-          <model-viewer
-            src="models/wardrobe1.glb"
-            alt="3D-модель шкафа-прихожей Mebel Line"
-            ar
-            ar-modes="scene-viewer webxr quick-look"
-            camera-controls
-            environment-image="neutral"
-            exposure="1.1"
-            shadow-intensity="0.6"
-            disable-zoom="false"
-            autoplay
-            style="width: 100%; height: 260px; border-radius: 18px; overflow: hidden;"
-          >
-          </model-viewer>
-
-          <button class="ar-button" onclick="enterAR(this)">
-            Посмотреть в AR
-          </button>
-          <p class="ar-hint">
-            Откройте этот раздел на современном смартфоне — вы сможете «поставить» модель в своей прихожей и оценить габариты.
-          </p>
-        </div>
+        <button class="ar-button" onclick="enterAR(this)">
+          Посмотреть в AR
+        </button>
+        <p class="ar-hint" id="arProjectHint">
+          Откройте этот раздел на современном смартфоне — вы сможете «поставить» шкаф-прихожую у своей стены.
+        </p>
       </div>
     </div>
   </div>
 </section>
 
-
-
-    <section id="services" class="section">
+<section id="services" class="section section-services">
+<section id="services" class="section">
       <div class="container">
         <div class="section-header">
           <div>
@@ -551,6 +551,8 @@
       <span>Живая мастерская без лишней витрины.</span>
     </div>
   </footer>
+
+  <button class="scroll-top" id="scrollTopBtn" aria-label="Подняться наверх">↑</button>
 
 </div>
 
