@@ -116,7 +116,7 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     });
   }
-// Lead form -> send text to hidden field for Telegram Bot API
+  // Lead form -> send структурированную заявку в Telegram Bot API
   if (leadForm) {
     leadForm.addEventListener("submit", () => {
       const name = document.getElementById("name").value.trim();
@@ -124,13 +124,16 @@ document.addEventListener("DOMContentLoaded", () => {
       const task = document.getElementById("task").value.trim();
       const textField = document.getElementById("telegramText");
 
-      let text = "Здравствуйте! Пишу по поводу мебели.\n\n";
+      let text = "Новая заявка с сайта\n";
+      text += "Источник: сайт (форма в разделе Контакты)\n";
+      text += "------------------------------\n";
       if (name) text += `Имя: ${name}\n`;
       if (contact) text += `Контакт: ${contact}\n`;
+
       if (task) {
-        text += "\nЗадача: " + task;
+        text += "\nСообщение клиента:\n" + task;
       } else {
-        text += "\nЗадача: кухня/шкаф/стол (опишите, что нужно).";
+        text += "\nСообщение клиента:\n(клиент не описал задачу, уточните в чате)";
       }
 
       if (textField) {
@@ -139,7 +142,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const note = document.querySelector(".form-note");
       if (note) {
-        note.textContent = "Заявка отправлена! Евгений свяжется с вами в Telegram или по телефону.";
+        note.textContent = "Заявка отправлена! Евгений свяжется с вами в ближайшее время.";
       }
       // Форма отправится на Telegram Bot API через стандартный submit
     });
