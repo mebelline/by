@@ -157,7 +157,27 @@ if ("IntersectionObserver" in window && revealSections.length) {
     });
   }
 
-  // Анимация чисел в блоке статистики
+  
+  // Scroll reveal для секций
+  const revealElements = document.querySelectorAll("[data-reveal]");
+  if (revealElements.length && "IntersectionObserver" in window) {
+    const revealObserver = new IntersectionObserver(
+      (entries, observer) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add("is-visible");
+          observer.unobserve(entry.target);
+        });
+      },
+      { threshold: 0.15 }
+    );
+
+    revealElements.forEach((el) => revealObserver.observe(el));
+  } else if (revealElements.length) {
+    revealElements.forEach((el) => el.classList.add("is-visible"));
+  }
+
+// Анимация чисел в блоке статистики
   const statNumbers = document.querySelectorAll(".stat-number[data-target]");
   if (statNumbers.length && "IntersectionObserver" in window) {
     const statsObserver = new IntersectionObserver((entries, observer) => {
@@ -223,12 +243,7 @@ if ("IntersectionObserver" in window && revealSections.length) {
       thumb.addEventListener("click", () => applyFromThumb(thumb));
     });
 
-    // Лёгкий автопереключатель
-    setInterval(() => {
-      if (!document.body.contains(heroMainCard)) return;
-      const next = heroThumbs[(currentIndex + 1) % heroThumbs.length];
-      if (next) applyFromThumb(next);
-    }, 8000);
+  
   }
 
   // Фильтрация портфолио и модальное окно
