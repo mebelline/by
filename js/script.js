@@ -82,18 +82,58 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+
+// Плавное появление секций при скролле
+const revealSections = document.querySelectorAll("section");
+if ("IntersectionObserver" in window && revealSections.length) {
+  revealSections.forEach((sec) => sec.classList.add("reveal-section"));
+
+  const revealObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.2 }
+  );
+
+  revealSections.forEach((sec) => revealObserver.observe(sec));
+}
+
   // Кнопка «наверх»
   if (scrollTopBtn) {
-    window.addEventListener("scroll", () => {
-      if (window.scrollY > 400) {
+    const handleScroll = () => {
+      const y = window.scrollY || window.pageYOffset;
+      if (y > 400) {
         scrollTopBtn.classList.add("visible");
       } else {
         scrollTopBtn.classList.remove("visible");
       }
-    });
+
+      if (y > 10) {
+        document.body.classList.add("is-scrolled");
+      } else {
+        document.body.classList.remove("is-scrolled");
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    handleScroll();
 
     scrollTopBtn.addEventListener("click", () => {
       window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  } else {
+    window.addEventListener("scroll", () => {
+      const y = window.scrollY || window.pageYOffset;
+      if (y > 10) {
+        document.body.classList.add("is-scrolled");
+      } else {
+        document.body.classList.remove("is-scrolled");
+      }
     });
   }
 
@@ -116,6 +156,257 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     });
   }
+
+  // Анимация чисел в блоке статистики
+  const statNumbers = document.querySelectorAll(".stat-number[data-target]");
+  if (statNumbers.length && "IntersectionObserver" in window) {
+    const statsObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        const el = entry.target;
+        const target = parseInt(el.getAttribute("data-target"), 10) || 0;
+        const duration = 900;
+        const startTime = performance.now();
+
+        const animate = (now) => {
+          const progress = Math.min((now - startTime) / duration, 1);
+          const value = Math.floor(target * progress);
+          el.textContent = value.toString();
+          if (progress < 1) {
+            requestAnimationFrame(animate);
+          } else {
+            el.textContent = target.toString();
+          }
+        };
+
+        requestAnimationFrame(animate);
+        observer.unobserve(el);
+      });
+    }, { threshold: 0.6 });
+
+    statNumbers.forEach((num) => statsObserver.observe(num));
+  }
+
+  // Герой: переключение изображений по клику на превью
+  const heroMainCard = document.querySelector(".hero-main-card");
+  const heroMainImg = heroMainCard ? heroMainCard.querySelector("img") : null;
+  const heroMainTitle = heroMainCard ? heroMainCard.querySelector(".hero-main-title") : null;
+  const heroMainSub = heroMainCard ? heroMainCard.querySelector(".hero-main-sub") : null;
+  const heroThumbs = document.querySelectorAll(".hero-thumb");
+
+  if (heroMainCard && heroMainImg && heroMainTitle && heroMainSub && heroThumbs.length) {
+    const initial = {
+      src: heroMainImg.getAttribute("src"),
+      alt: heroMainImg.getAttribute("alt"),
+      title: heroMainTitle.textContent,
+      sub: heroMainSub.textContent,
+    };
+
+    let currentIndex = 0;
+
+    const applyFromThumb = (thumb) => {
+      const img = thumb.querySelector("img");
+      const caption = thumb.querySelector(".hero-thumb-caption");
+      if (!img) return;
+      heroMainImg.src = img.src;
+      heroMainImg.alt = img.alt || "";
+      if (caption) {
+        heroMainTitle.textContent = caption.textContent || "";
+        heroMainSub.textContent = img.alt || "";
+      }
+      heroThumbs.forEach((t) => t.classList.remove("is-active"));
+      thumb.classList.add("is-active");
+      currentIndex = Array.prototype.indexOf.call(heroThumbs, thumb);
+    };
+
+    heroThumbs.forEach((thumb) => {
+      thumb.addEventListener("click", () => applyFromThumb(thumb));
+    });
+
+    // Лёгкий автопереключатель
+    setInterval(() => {
+      if (!document.body.contains(heroMainCard)) return;
+      const next = heroThumbs[(currentIndex + 1) % heroThumbs.length];
+      if (next) applyFromThumb(next);
+    }, 8000);
+  }
+
+  // Фильтрация портфолио и модальное окно
+  const filterButtons = document.querySelectorAll("[data-portfolio-filter]");
+  const portfolioCards = document.querySelectorAll(".portfolio-grid .card");
+
+  if (filterButtons.length && portfolioCards.length) {
+    filterButtons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const filter = btn.getAttribute("data-portfolio-filter") || "all";
+        filterButtons.forEach((b) => b.classList.toggle("is-active", b === btn));
+
+        portfolioCards.forEach((card) => {
+          const category = card.getAttribute("data-category") || "all";
+          if (filter === "all" || category === filter) {
+            card.classList.remove("is-hidden");
+          } else {
+            card.classList.add("is-hidden");
+          }
+        });
+      });
+    });
+  }
+
+  const portfolioModal = document.getElementById("portfolioModal");
+  const modalImage = document.getElementById("portfolioModalImage");
+  const modalTitle = document.getElementById("portfolioModalTitle");
+  const modalText = document.getElementById("portfolioModalText");
+  const modalTags = document.getElementById("portfolioModalTags");
+
+  if (portfolioModal && portfolioCards.length) {
+    const openModal = (card) => {
+      const img = card.querySelector(".card-img-wrap img");
+      const titleEl = card.querySelector("h3");
+      const textEl = card.querySelector("p");
+      const tagsEl = card.querySelector(".card-tags");
+
+      if (img && modalImage) {
+        modalImage.src = img.src;
+        modalImage.alt = img.alt || "";
+      }
+      if (modalTitle) modalTitle.textContent = titleEl ? titleEl.textContent : "";
+      if (modalText) modalText.textContent = textEl ? textEl.textContent : "";
+      if (modalTags) modalTags.innerHTML = tagsEl ? tagsEl.innerHTML : "";
+
+      portfolioModal.classList.add("is-open");
+      document.body.classList.add("modal-open");
+    };
+
+    portfolioCards.forEach((card) => {
+      card.addEventListener("click", () => openModal(card));
+    });
+
+    const closeModal = () => {
+      portfolioModal.classList.remove("is-open");
+      document.body.classList.remove("modal-open");
+    };
+
+    portfolioModal.addEventListener("click", (event) => {
+      const target = event.target;
+      if (target.matches("[data-portfolio-close]") || target === portfolioModal || target.classList.contains("portfolio-modal-backdrop")) {
+        closeModal();
+      }
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && portfolioModal.classList.contains("is-open")) {
+        closeModal();
+      }
+    });
+  }
+
+  // Автовоспроизведение видео при попадании в зону видимости
+  const autoplayVideos = document.querySelectorAll("video[data-autoplay]");
+  if (autoplayVideos.length && "IntersectionObserver" in window) {
+    const videoObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        const video = entry.target;
+        if (!(video instanceof HTMLVideoElement)) return;
+        if (entry.isIntersecting) {
+          const playPromise = video.play();
+          if (playPromise && typeof playPromise.catch === "function") {
+            playPromise.catch(() => {});
+          }
+        } else {
+          video.pause();
+        }
+      });
+    }, { threshold: 0.5 });
+
+    autoplayVideos.forEach((video) => videoObserver.observe(video));
+  }
+
+  // FAQ: аккордеон
+  const faqItems = document.querySelectorAll(".faq-item");
+  if (faqItems.length) {
+    faqItems.forEach((item) => {
+      const questionBtn = item.querySelector(".faq-question");
+      const answer = item.querySelector(".faq-answer");
+      if (!questionBtn || !answer) return;
+
+      if (item.classList.contains("is-open")) {
+        answer.style.maxHeight = answer.scrollHeight + "px";
+      }
+
+      questionBtn.addEventListener("click", () => {
+        const isOpen = item.classList.contains("is-open");
+        faqItems.forEach((other) => {
+          if (other !== item) {
+            other.classList.remove("is-open");
+            const otherAnswer = other.querySelector(".faq-answer");
+            if (otherAnswer) otherAnswer.style.maxHeight = "0px";
+          }
+        });
+        if (!isOpen) {
+          item.classList.add("is-open");
+          answer.style.maxHeight = answer.scrollHeight + "px";
+        } else {
+          item.classList.remove("is-open");
+          answer.style.maxHeight = "0px";
+        }
+      });
+    });
+  }
+
+  // Калькулятор примерной сметы
+  const estimateForm = document.getElementById("estimateForm");
+  const estimateResult = document.getElementById("estimateResult");
+
+  if (estimateForm && estimateResult) {
+    estimateForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const formData = new FormData(estimateForm);
+      const type = formData.get("type");
+      const length = parseFloat(formData.get("length") || "0");
+      const complexity = formData.get("complexity") || "basic";
+
+      if (!length || length <= 0) {
+        return;
+      }
+
+      // Базовые ставки за метр (условные, для ориентира)
+      const basePerMeter = {
+        kitchen: 520,
+        wardrobe: 430,
+        hallway: 380,
+        bathroom: 450,
+        office: 360,
+      };
+
+      let pricePerMeter = basePerMeter[type] || 420;
+
+      if (complexity === "smart") {
+        pricePerMeter *= 1.18;
+      } else if (complexity === "premium") {
+        pricePerMeter *= 1.35;
+      }
+
+      const minPrice = Math.round(pricePerMeter * length * 0.9);
+      const maxPrice = Math.round(pricePerMeter * length * 1.15);
+
+      const formatCurrency = (value) =>
+        value.toLocaleString("ru-RU", { maximumFractionDigits: 0 });
+
+      estimateResult.innerHTML = `
+        <div>
+          <div class="estimate-output-main">Ориентировочно от ${formatCurrency(
+            minPrice
+          )} до ${formatCurrency(maxPrice)} BYN</div>
+          <div class="estimate-output-extra">
+            При расчёте учтены базовые материалы и стандартная фурнитура. 
+            Точная сумма зависит от наполнения, фасадов и выбранных механизмов.
+          </div>
+        </div>
+      `;
+    });
+  }
+
   // Lead form -> send структурированную заявку в Telegram Bot API
   if (leadForm) {
     leadForm.addEventListener("submit", () => {

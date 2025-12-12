@@ -8,6 +8,19 @@
   <meta name="description"
         content="Mebel Line — мебель от мастера Евгения. Кухни, шкафы, столы и функциональные решения под размеры вашего дома. Гомель и область, Беларусь." />
 
+  <!-- Social preview (Open Graph / Twitter) -->
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Mebel Line — мебель на заказ в Гомеле" />
+<meta property="og:description" content="Кухни, шкафы, гардеробные и другая мебель под ваш размер от частного мастера из Гомеля." />
+<meta property="og:image" content="https://mebelline.by/images/preview-mebel-line.png" />
+<meta property="og:url" content="https://mebelline.by/" />
+<meta property="og:locale" content="ru_RU" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Mebel Line — мебель на заказ в Гомеле" />
+<meta name="twitter:description" content="Современная мебель под размер вашей квартиры или дома. Гомель и область." />
+<meta name="twitter:image" content="https://mebelline.by/images/preview-mebel-line.png" />
+
   <!-- Favicon / shortcut icon -->
   <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png" />
   <link rel="icon" type="image/png" sizes="192x192" href="images/favicon-512.png" />
@@ -45,7 +58,7 @@
             <span class="theme-switch-dot"></span>
             <span>Светлая / тёмная</span>
           </button>
-          <a class="pill-secondary" href="https://www.instagram.com/mebel_line__?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="tgFrame" rel="noopener">📸 Instagram</a>
+          <a class="pill-secondary" href="https://www.instagram.com/mebel_line__?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener">📸 Instagram</a>
           <a class="pill" href="tel:+375293445423">Позвонить</a>
         </div>
       </nav>
@@ -68,18 +81,33 @@
             Аккуратный монтаж, понятные сроки и живое общение без лишней бюрократии.
           </p>
           <div class="hero-actions">
-            <a class="pill" href="https://t.me/mebel_line_evgeniy" target="tgFrame" rel="noopener">Написать в Telegram</a>
-            <a class="pill-secondary" href="https://www.instagram.com/mebel_line__?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="tgFrame" rel="noopener">Открыть Instagram</a>
+            <a class="pill" href="https://t.me/mebel_line_evgeniy" target="_blank" rel="noopener">Написать в Telegram</a>
+            <a class="pill-secondary" href="https://www.instagram.com/mebel_line__?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener">Открыть Instagram</a>
           </div>
           <p class="hero-meta">
             <strong>Регион:</strong> Гомель и Гомельская область, Беларусь.<br />
             Можно прислать фото помещения и пример желаемой мебели — Евгений подскажет, как лучше реализовать.
           </p>
+          <div class="hero-stats">
+            <div class="hero-stat">
+              <span class="stat-number" data-target="40">0</span>
+              <span class="stat-label">реализованных проектов</span>
+            </div>
+            <div class="hero-stat">
+              <span class="stat-number" data-target="6">0</span>
+              <span class="stat-label">форматов мебели: кухни, шкафы, гардеробные, прихожие, прачечные, рабочие зоны</span>
+            </div>
+            <div class="hero-stat">
+              <span class="stat-number" data-target="85">0</span>
+              <span class="stat-label">% заказов по рекомендации</span>
+            </div>
+          </div>
         </div>
 
         <div class="hero-gallery">
           <div class="hero-main-card">
             <img src="images/kitchen-minimal.jpg" alt="Современная угловая кухня в светлых тонах" />
+            <div class="hero-main-gradient"></div>
             <div class="hero-main-info">
               <div class="hero-main-title">Угловая кухня · светлый минимализм</div>
               <div class="hero-main-sub">Квартира в Гомеле · удобное хранение, встроенная техника и аккуратный фартук под бетон.</div>
@@ -116,8 +144,17 @@
           <button class="section-cta" data-scroll="#contacts">Обсудить ваш проект →</button>
         </div>
 
+        <div class="portfolio-filters">
+          <button class="portfolio-filter-btn is-active" type="button" data-portfolio-filter="all">Все проекты</button>
+          <button class="portfolio-filter-btn" type="button" data-portfolio-filter="kitchen">Кухни</button>
+          <button class="portfolio-filter-btn" type="button" data-portfolio-filter="wardrobe">Шкафы и гардеробные</button>
+          <button class="portfolio-filter-btn" type="button" data-portfolio-filter="hallway">Прихожие</button>
+          <button class="portfolio-filter-btn" type="button" data-portfolio-filter="bathroom">Санузел и прачечные</button>
+          <button class="portfolio-filter-btn" type="button" data-portfolio-filter="office">Рабочие зоны и столы</button>
+        </div>
+
         <div class="grid portfolio-grid">
-          <article class="card">
+          <article class="card" data-category="kitchen">
             <div class="card-img-wrap">
               <img src="images/kitchen-minimal.jpg" alt="Угловая кухня в светлых тонах" />
             </div>
@@ -130,7 +167,7 @@
             </div>
           </article>
 
-          <article class="card">
+          <article class="card" data-category="wardrobe">
             <div class="card-img-wrap">
               <img src="images/wardrobe-tall.jpg" alt="Высокий шкаф до потолка" />
             </div>
@@ -143,7 +180,7 @@
             </div>
           </article>
 
-          <article class="card">
+          <article class="card" data-category="bathroom">
             <div class="card-img-wrap">
               <img src="images/bath-vanity.jpg" alt="Тумба под раковину" />
             </div>
@@ -156,7 +193,7 @@
             </div>
           </article>
 
-          <article class="card">
+          <article class="card" data-category="wardrobe">
             <div class="card-img-wrap">
               <img src="images/dresser-light-wood.jpg" alt="Комод из светлого дерева" />
             </div>
@@ -169,7 +206,7 @@
             </div>
           </article>
 
-          <article class="card">
+          <article class="card" data-category="bathroom">
             <div class="card-img-wrap">
               <img src="images/wardrobe-narrow.jpg" alt="Узкий шкаф для хранения" />
             </div>
@@ -182,7 +219,7 @@
             </div>
           </article>
 
-          <article class="card">
+          <article class="card" data-category="bathroom">
             <div class="card-img-wrap">
               <img src="images/module-panel.jpg" alt="Модульный элемент мебели" />
             </div>
@@ -195,7 +232,7 @@
             </div>
           </article>
 
-          <article class="card">
+          <article class="card" data-category="wardrobe">
             <div class="card-img-wrap">
               <img src="images/wardrobe-big.jpg" alt="Большой встроенный шкаф" />
             </div>
@@ -208,7 +245,7 @@
             </div>
           </article>
 
-          <article class="card">
+          <article class="card" data-category="wardrobe">
             <div class="card-img-wrap">
               <img src="images/wardrobe-with-drawers.jpg" alt="Шкаф и комод в одном комплексе" />
             </div>
@@ -221,7 +258,7 @@
             </div>
           </article>
 
-          <article class="card">
+          <article class="card" data-category="wardrobe">
             <div class="card-img-wrap">
               <img src="images/wardrobe-led-shelves.jpg" alt="Шкаф с подсветкой и открытыми полками" />
             </div>
@@ -234,7 +271,7 @@
             </div>
           </article>
 
-          <article class="card">
+          <article class="card" data-category="office">
             <div class="card-img-wrap">
               <img src="images/table-dark-loft.jpg" alt="Обеденный стол на металлическом основании" />
             </div>
@@ -247,7 +284,7 @@
             </div>
           </article>
 
-          <article class="card">
+          <article class="card" data-category="office">
             <div class="card-img-wrap">
               <img src="images/desk-corner.jpg" alt="Угловой компьютерный стол" />
             </div>
@@ -260,7 +297,7 @@
             </div>
           </article>
 
-          <article class="card">
+          <article class="card" data-category="kitchen">
             <div class="card-img-wrap">
               <img src="images/table-white-transform.jpg" alt="Раздвижной белый стол" />
             </div>
@@ -273,7 +310,7 @@
             </div>
           </article>
 
-          <article class="card">
+          <article class="card" data-category="hallway">
             <div class="card-img-wrap">
               <img src="images/corner-shelves.jpg" alt="Угловые открытые полки" />
             </div>
@@ -286,7 +323,7 @@
             </div>
           </article>
 
-          <article class="card">
+          <article class="card" data-category="office">
             <div class="card-img-wrap">
               <img src="images/desk-white.jpg" alt="Белый письменный стол" />
             </div>
@@ -299,7 +336,7 @@
             </div>
           </article>
 
-          <article class="card">
+          <article class="card" data-category="bathroom">
             <div class="card-img-wrap">
               <img src="images/cabinet-toilet.jpg" alt="Встроенный шкаф над инсталляцией" />
             </div>
@@ -311,12 +348,62 @@
               </div>
             </div>
           </article>
+
+          <article class="card" data-category="wardrobe">
+            <div class="card-img-wrap">
+              <img src="images/portfolio-white-wardrobe-1.jpg" alt="Белый шкаф до потолка в коридоре" />
+            </div>
+            <div class="card-body">
+              <h3>Белый шкаф до потолка</h3>
+              <p>Встроенная система хранения от стены до стены. Ровные зазоры, скрытые цоколи и аккуратная посадка к потолку.</p>
+              <div class="card-tags">
+                <span>Встроенный шкаф</span><span>Коридор</span><span>Светлый интерьер</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="card" data-category="hallway">
+            <div class="card-img-wrap">
+              <img src="images/portfolio-hall-wardrobe-bench.jpg" alt="Прихожая со шкафом и мягкой скамьёй" />
+            </div>
+            <div class="card-body">
+              <h3>Прихожая со шкафом и мягкой скамьёй</h3>
+              <p>Угловое решение: высокие шкафы, мягкое сиденье и рейки для верхней одежды. Всё продумано для ежедневного использования.</p>
+              <div class="card-tags">
+                <span>Прихожая</span><span>Скамья</span><span>Угловое решение</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="card" data-category="wardrobe">
+            <div class="card-img-wrap">
+              <img src="images/portfolio-corner-wardrobe-desk.jpg" alt="Угловой шкаф с рабочим столом" />
+            </div>
+            <div class="card-body">
+              <h3>Угловой шкаф с рабочим столом</h3>
+              <p>Шкаф с распашными фасадами и интегрированным столом у окна. Удобно для детской или домашнего кабинета.</p>
+              <div class="card-tags">
+                <span>Шкаф</span><span>Рабочее место</span><span>Детская</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="card" data-category="bathroom">
+            <div class="card-img-wrap">
+              <img src="images/portfolio-laundry-cabinet.jpg" alt="Система хранения вокруг стиральной машины" />
+            </div>
+            <div class="card-body">
+              <h3>Система хранения в прачечной зоне</h3>
+              <p>Шкаф вокруг стиральной машины: высокие фасады, практичные открытые ниши и место под корзины.</p>
+              <div class="card-tags">
+                <span>Прачечная</span><span>Санузел</span><span>Скрытое хранение</span>
+              </div>
+            </div>
+          </article>
+
         </div>
       </div>
-    </section>
-
-
-<section id="ar" class="section section-ar">
+    </section><section id="ar" class="section section-ar">
   <div class="container">
     <div class="section-header">
       <div>
@@ -403,8 +490,42 @@
     </div>
   </div>
 </section>
+<section id="video" class="section section-video">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <div class="section-kicker">Видео из реальных объектов</div>
+        <h2>До и после: как мебель меняет пространство</h2>
+        <p class="section-sub">
+          Короткие ролики из реальных квартир: видно, как аккуратно закрываются фасады, как прячутся коммуникации и сколько
+          места остаётся для жизни.
+        </p>
+      </div>
+      <button class="section-cta" data-scroll="#contacts">Хочу так же →</button>
+    </div>
 
-<section id="services" class="section section-services">
+    <div class="video-grid video-grid--single">
+      <article class="video-card video-card-dual">
+        <div class="video-card-header">
+          <h3>Сантехнический шкаф с прачечной зоной</h3>
+          <p>Две стадии одного проекта: открытые коммуникации и аккуратный шкаф вокруг техники.</p>
+        </div>
+        <div class="video-dual-layout">
+          <div class="video-wrapper">
+            <div class="video-label">До</div>
+            <video src="media/img_4634.mp4" muted playsinline loop controls data-autoplay></video>
+          </div>
+          <div class="video-wrapper">
+            <div class="video-label video-label--after">После</div>
+            <video src="media/img_4636.mp4" muted playsinline loop controls data-autoplay></video>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+
 <section id="services" class="section">
       <div class="container">
         <div class="section-header">
@@ -440,6 +561,63 @@
         </div>
       </div>
     </section>
+    <section id="faq" class="section section-faq">
+      <div class="container">
+        <div class="section-header">
+          <div>
+            <div class="section-kicker">Вопросы</div>
+            <h2>Частые вопросы про мебель на заказ</h2>
+            <p class="section-sub">
+              Кратко о том, как проходит работа, какие сроки и что по гарантиям. Если останутся вопросы — проще всего задать их в Telegram.
+            </p>
+          </div>
+        </div>
+
+        <div class="faq-list">
+          <div class="faq-item is-open">
+            <button class="faq-question" type="button">
+              <span>Как проходит работа от первого сообщения до монтажа?</span>
+              <span class="faq-icon"></span>
+            </button>
+            <div class="faq-answer">
+              <p>Сначала вы присылаете фото помещения и пример желаемой мебели. Евгений задаёт уточняющие вопросы, делает замер, предлагает варианты по наполнению и материалам. После согласования эскиза и сметы запускается производство и назначается день монтажа.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" type="button">
+              <span>Сколько по времени занимает изготовление мебели?</span>
+              <span class="faq-icon"></span>
+            </button>
+            <div class="faq-answer">
+              <p>В среднем от двух до четырёх недель. Срок зависит от объёма, выбранных материалов и загрузки производства. Точные сроки Евгений озвучивает после обсуждения конкретного проекта.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" type="button">
+              <span>Даете ли вы гарантию на мебель и фурнитуру?</span>
+              <span class="faq-icon"></span>
+            </button>
+            <div class="faq-answer">
+              <p>На фурнитуру действует гарантия производителя, на монтаж и сборку — гарантия мастера. Если что‑то нужно подправить, можно написать Евгению в мессенджер — мелкие вопросы решаются оперативно.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question" type="button">
+              <span>Можно ли сначала сделать примерную смету по фото и размерам?</span>
+              <span class="faq-icon"></span>
+            </button>
+            <div class="faq-answer">
+              <p>Да, ориентировочную стоимость можно посчитать по фото и примерным размерам стены. А окончательная цена уточняется после замера и выбора материалов.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
 
     <section id="about" class="section">
       <div class="container about">
@@ -473,11 +651,86 @@
             <span class="about-label">Формат работы</span>
             <span class="about-value">частный мастер, личное общение</span>
           </div>
+        
+
+<div class="about-process">
+  <h3 class="about-process-title">Как проходит работа</h3>
+  <ol class="about-process-steps">
+    <li><span>1.</span> Вы оставляете заявку на сайте или пишете в Telegram / Instagram.</li>
+    <li><span>2.</span> Евгений задаёт пару уточняющих вопросов, ориентирует по бюджету и договаривается о замере.</li>
+    <li><span>3.</span> После замера мастер продумывает наполнение, предлагает материалы и фурнитуру под ваш случай.</li>
+    <li><span>4.</span> Согласовываете финальный вариант, сроки и стоимость, после чего запускается производство.</li>
+    <li><span>5.</span> Готовую мебель аккуратно привозят, собирают и на месте проверяют, чтобы всё работало как нужно.</li>
+  </ol>
+</div>
+</div>
+      </div>
+    </section>
+
+    
+    <section id="estimate" class="section section-estimate">
+      <div class="container">
+        <div class="section-header">
+          <div>
+            <div class="section-kicker">Ориентировочная смета</div>
+            <h2>Прикиньте бюджет по вашему проекту</h2>
+            <p class="section-sub">
+              Калькулятор даёт примерный диапазон стоимости. Точный расчёт всегда делается после замера, обсуждения наполнения и выбора материалов.
+            </p>
+          </div>
+        </div>
+
+        <div class="estimate-layout">
+          <form class="estimate-form" id="estimateForm">
+            <label class="estimate-field">
+              <span>Тип мебели</span>
+              <select name="type" required>
+                <option value="kitchen">Кухня</option>
+                <option value="wardrobe">Шкаф / гардеробная</option>
+                <option value="hallway">Прихожая</option>
+                <option value="bathroom">Санузел / прачечная</option>
+                <option value="office">Рабочее место / стол</option>
+              </select>
+            </label>
+
+            <label class="estimate-field">
+              <span>Длина или ширина стены, м</span>
+              <input type="number" name="length" step="0.1" min="1" max="10" placeholder="Например, 3.2" required />
+            </label>
+
+            <fieldset class="estimate-field">
+              <legend>Наполнение</legend>
+              <div class="estimate-options">
+                <label>
+                  <input type="radio" name="complexity" value="basic" checked />
+                  <span>Базовое · без излишков</span>
+                </label>
+                <label>
+                  <input type="radio" name="complexity" value="smart" />
+                  <span>Умное хранение · ящики, корзины</span>
+                </label>
+                <label>
+                  <input type="radio" name="complexity" value="premium" />
+                  <span>Максимум возможностей</span>
+                </label>
+              </div>
+            </fieldset>
+
+            <button type="submit" class="section-cta estimate-submit">Посчитать ориентировочную стоимость</button>
+            <p class="estimate-note">Результат не является офертой. Чтобы получить точную смету, лучше всего написать Евгению в Telegram.</p>
+          </form>
+
+          <div class="estimate-result" id="estimateResult">
+            <div class="estimate-placeholder">
+              <h3>Результат появится здесь</h3>
+              <p>Заполните параметры слева — и увидите примерный диапазон стоимости для вашего проекта.</p>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
-    <section id="contacts" class="section">
+<section id="contacts" class="section">
       <div class="container contacts">
         <div class="contacts-main">
           <div class="section-kicker">Контакты</div>
@@ -542,7 +795,26 @@
     </section>
   </main>
 
-  <footer>
+  
+  <div class="portfolio-modal" id="portfolioModal" aria-hidden="true">
+    <div class="portfolio-modal-backdrop" data-portfolio-close></div>
+    <div class="portfolio-modal-inner" role="dialog" aria-modal="true">
+      <button class="portfolio-modal-close" type="button" data-portfolio-close aria-label="Закрыть просмотр проекта">×</button>
+      <div class="portfolio-modal-layout">
+        <div class="portfolio-modal-media">
+          <img src="" alt="" id="portfolioModalImage">
+        </div>
+        <div class="portfolio-modal-content">
+          <h3 id="portfolioModalTitle"></h3>
+          <p id="portfolioModalText"></p>
+          <div class="portfolio-modal-tags" id="portfolioModalTags"></div>
+          <button class="section-cta portfolio-modal-cta" data-scroll="#contacts">Обсудить похожий проект →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<footer>
     <div class="container footer-inner">
       <span>© <span id="year"></span> Mebel Line · мебель, Гомель.</span>
       <span>Живая мастерская без лишней витрины.</span>
