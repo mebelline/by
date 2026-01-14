@@ -1,8 +1,57 @@
+// ===== LUXURY SMOOTH SCROLL ENGINE =====
+(function () {
+  let current = window.scrollY;
+  let target = window.scrollY;
+  let ease = 0.08; // чем меньше — тем плавнее
+  let rafId = null;
+  let isEnabled = true;
+
+  function animate() {
+    current += (target - current) * ease;
+    if (Math.abs(target - current) < 0.1) current = target;
+
+    window.scrollTo(0, current);
+
+    rafId = requestAnimationFrame(animate);
+  }
+
+  window.addEventListener("wheel", (e) => {
+    if (!isEnabled) return;
+
+    e.preventDefault();
+    target += e.deltaY;
+    target = Math.max(0, Math.min(target, document.body.scrollHeight - window.innerHeight));
+
+    if (!rafId) animate();
+  }, { passive: false });
+
+  window.addEventListener("touchmove", () => {
+    target = window.scrollY;
+    current = window.scrollY;
+  });
+
+  window.luxuryScroll = {
+    enable() {
+      isEnabled = true;
+    },
+    disable() {
+      isEnabled = false;
+      cancelAnimationFrame(rafId);
+      rafId = null;
+    },
+    scrollTo(y) {
+      target = y;
+      if (!rafId) animate();
+    }
+  };
+})();
+
 
 document.addEventListener("DOMContentLoaded", () => {
   const themeToggle = document.getElementById("themeToggle");
   const burgerBtn = document.getElementById("burgerBtn");
   const navLinks = document.querySelectorAll(".nav-link[data-scroll]");
+  const scrollButtons = document.querySelectorAll("[data-scroll]");
   const yearSpan = document.getElementById("year");
   const leadForm = document.getElementById("leadForm");
   const scrollTopBtn = document.getElementById("scrollTopBtn");
@@ -40,15 +89,15 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Smooth scroll
-  navLinks.forEach((btn) => {
+  // Smooth scroll (для всех элементов с data-scroll)
+  scrollButtons.forEach((btn) => {
     btn.addEventListener("click", () => {
       const target = btn.getAttribute("data-scroll");
       if (target) {
         const el = document.querySelector(target);
         if (el) {
           const top = el.getBoundingClientRect().top + window.scrollY - 70;
-          window.scrollTo({ top, behavior: "smooth" });
+          window.luxuryScroll.scrollTo(top);
         }
       }
       document.body.classList.remove("nav-open");
@@ -124,7 +173,7 @@ if ("IntersectionObserver" in window && revealSections.length) {
     handleScroll();
 
     scrollTopBtn.addEventListener("click", () => {
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      window.luxuryScroll.scrollTo(0);
     });
   } else {
     window.addEventListener("scroll", () => {
@@ -207,44 +256,278 @@ if ("IntersectionObserver" in window && revealSections.length) {
     statNumbers.forEach((num) => statsObserver.observe(num));
   }
 
-  // Герой: переключение изображений по клику на превью
-  const heroMainCard = document.querySelector(".hero-main-card");
-  const heroMainImg = heroMainCard ? heroMainCard.querySelector("img") : null;
-  const heroMainTitle = heroMainCard ? heroMainCard.querySelector(".hero-main-title") : null;
-  const heroMainSub = heroMainCard ? heroMainCard.querySelector(".hero-main-sub") : null;
-  const heroThumbs = document.querySelectorAll(".hero-thumb");
+  
+  // Projects: data-driven viewer (hero + portfolio)
+  const projects = Array.isArray(window.ML_PROJECTS) ? window.ML_PROJECTS : [];
+  const projectMap = new Map(projects.map((p) => [p.id, p]));
 
-  if (heroMainCard && heroMainImg && heroMainTitle && heroMainSub && heroThumbs.length) {
-    const initial = {
-      src: heroMainImg.getAttribute("src"),
-      alt: heroMainImg.getAttribute("alt"),
-      title: heroMainTitle.textContent,
-      sub: heroMainSub.textContent,
+  const projectModal = document.getElementById("projectModal");
+  const pmImage = document.getElementById("projectModalImage");
+  const pmVideo = document.getElementById("projectModalVideo");
+  const pmTitle = document.getElementById("projectModalTitle");
+  const pmSub = document.getElementById("projectModalSub");
+  const pmKicker = document.getElementById("projectModalKicker");
+  const pmDesc = document.getElementById("projectModalDesc");
+  const pmTags = document.getElementById("projectModalTags");
+  const pmSpecs = document.getElementById("projectModalSpecs");
+  const pmThumbs = document.getElementById("projectModalThumbs");
+  const pmPrev = projectModal ? projectModal.querySelector(".project-nav-prev") : null;
+  const pmNext = projectModal ? projectModal.querySelector(".project-nav-next") : null;
+
+  let activeProject = null;
+  let activeMedia = [];
+  let activeIndex = 0;
+  let lastHash = "";
+
+  const safeText = (value) => (typeof value === "string" ? value : "");
+
+  const buildFallbackProjectFromCard = (card) => {
+    const img = card.querySelector(".card-img-wrap img");
+    const titleEl = card.querySelector("h3");
+    const textEl = card.querySelector("p");
+    const tagsEl = card.querySelector(".card-tags");
+
+    const tags = tagsEl
+      ? Array.from(tagsEl.querySelectorAll("span"))
+          .map((s) => s.textContent.trim())
+          .filter(Boolean)
+      : [];
+
+    return {
+      id: "card-" + Math.random().toString(16).slice(2),
+      category: card.getAttribute("data-category") || "project",
+      kicker: "Проект",
+      title: titleEl ? titleEl.textContent.trim() : "Проект",
+      subtitle: "",
+      description: textEl ? textEl.textContent.trim() : "",
+      tags,
+      specs: [],
+      media: img
+        ? [{ type: "image", src: img.getAttribute("src"), alt: img.getAttribute("alt") || "" }]
+        : [],
     };
+  };
 
-    let currentIndex = 0;
+  const setStage = (index) => {
+    if (!projectModal || !activeMedia.length) return;
+    const item = activeMedia[index];
+    if (!item) return;
 
-    const applyFromThumb = (thumb) => {
-      const img = thumb.querySelector("img");
-      const caption = thumb.querySelector(".hero-thumb-caption");
-      if (!img) return;
-      heroMainImg.src = img.src;
-      heroMainImg.alt = img.alt || "";
-      if (caption) {
-        heroMainTitle.textContent = caption.textContent || "";
-        heroMainSub.textContent = img.alt || "";
+    activeIndex = index;
+
+    if (pmVideo) {
+      pmVideo.pause();
+      pmVideo.removeAttribute("src");
+      pmVideo.load();
+      pmVideo.style.display = "none";
+    }
+    if (pmImage) {
+      pmImage.style.display = "none";
+    }
+
+    if (item.type === "video" && pmVideo) {
+      pmVideo.style.display = "block";
+      pmVideo.src = item.src;
+      pmVideo.load();
+    } else if (pmImage) {
+      pmImage.style.display = "block";
+      pmImage.src = item.src;
+      pmImage.alt = item.alt || safeText(activeProject && activeProject.title) || "Проект";
+    }
+
+    if (pmThumbs) {
+      const btns = pmThumbs.querySelectorAll(".project-thumb");
+      btns.forEach((b) => b.classList.toggle("is-active", parseInt(b.dataset.index || "0", 10) === index));
+    }
+  };
+
+  const renderThumbs = () => {
+    if (!pmThumbs) return;
+    pmThumbs.innerHTML = "";
+
+    activeMedia.forEach((item, idx) => {
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "project-thumb";
+      btn.dataset.index = String(idx);
+
+      if (item.type === "video") {
+        btn.classList.add("is-video");
+        btn.innerHTML = '<span class="project-thumb-play" aria-hidden="true"></span><span class="sr-only">Видео</span>';
+      } else {
+        const img = document.createElement("img");
+        img.src = item.src;
+        img.alt = item.alt || "";
+        img.loading = "lazy";
+        btn.appendChild(img);
       }
-      heroThumbs.forEach((t) => t.classList.remove("is-active"));
-      thumb.classList.add("is-active");
-      currentIndex = Array.prototype.indexOf.call(heroThumbs, thumb);
-    };
 
-    heroThumbs.forEach((thumb) => {
-      thumb.addEventListener("click", () => applyFromThumb(thumb));
+      btn.addEventListener("click", () => setStage(idx));
+      pmThumbs.appendChild(btn);
+    });
+  };
+
+  const setMeta = (project) => {
+    if (!project) return;
+    if (pmKicker) pmKicker.textContent = safeText(project.kicker);
+    if (pmTitle) pmTitle.textContent = safeText(project.title);
+    if (pmSub) pmSub.textContent = safeText(project.subtitle);
+
+    if (pmDesc) pmDesc.textContent = safeText(project.description);
+
+    if (pmTags) {
+      const tags = Array.isArray(project.tags) ? project.tags : [];
+      pmTags.innerHTML = tags.map((t) => `<span>${t}</span>`).join("");
+    }
+
+    if (pmSpecs) {
+      const specs = Array.isArray(project.specs) ? project.specs : [];
+      pmSpecs.innerHTML = specs.map((s) => `<li>${s}</li>`).join("");
+    }
+  };
+
+  const openProject = (projectOrId, startAt = 0, pushHash = true) => {
+    if (!projectModal) return;
+window.luxuryScroll.disable();
+
+    const project =
+      typeof projectOrId === "string"
+        ? projectMap.get(projectOrId)
+        : projectOrId;
+
+    if (!project) return;
+
+    activeProject = project;
+    activeMedia = Array.isArray(project.media) ? project.media.filter((m) => m && m.src) : [];
+    if (!activeMedia.length && project.heroCover) {
+      activeMedia = [{ type: "image", src: project.heroCover, alt: project.heroAlt || "" }];
+    }
+
+    setMeta(project);
+    renderThumbs();
+
+    projectModal.classList.add("is-open");
+    document.body.classList.add("modal-open");
+
+    setStage(Math.max(0, Math.min(startAt, activeMedia.length - 1)));
+
+    if (pushHash) {
+      lastHash = window.location.hash;
+      window.location.hash = "project=" + encodeURIComponent(project.id);
+    }
+  };
+
+  const closeProject = (restoreHash = true) => {
+    if (!projectModal) return;
+    window.luxuryScroll.enable();
+
+
+    projectModal.classList.remove("is-open");
+    document.body.classList.remove("modal-open");
+
+    if (pmVideo) {
+      pmVideo.pause();
+      pmVideo.removeAttribute("src");
+      pmVideo.load();
+    }
+
+    activeProject = null;
+    activeMedia = [];
+    activeIndex = 0;
+
+    if (restoreHash) {
+      // если мы открывали проект — почистим hash, чтобы не мешал навигации
+      if (window.location.hash.startsWith("#project=")) {
+        window.location.hash = lastHash && lastHash !== "#project=" ? lastHash : "";
+      }
+    }
+  };
+
+  const step = (dir) => {
+    if (!activeMedia.length) return;
+    const next = (activeIndex + dir + activeMedia.length) % activeMedia.length;
+    setStage(next);
+  };
+
+  if (projectModal) {
+    projectModal.addEventListener("click", (event) => {
+      const target = event.target;
+      if (!(target instanceof HTMLElement)) return;
+
+      if (target.matches("[data-project-close]") || target.classList.contains("project-modal-backdrop")) {
+        closeProject(true);
+        return;
+      }
     });
 
-  
+    if (pmPrev) pmPrev.addEventListener("click", () => step(-1));
+    if (pmNext) pmNext.addEventListener("click", () => step(1));
+
+    document.addEventListener("keydown", (event) => {
+      if (!projectModal.classList.contains("is-open")) return;
+      if (event.key === "Escape") closeProject(true);
+      if (event.key === "ArrowLeft") step(-1);
+      if (event.key === "ArrowRight") step(1);
+    });
+
+    // Deep-link: #project=...
+    const openFromHash = () => {
+      const hash = window.location.hash || "";
+      const m = hash.match(/#project=([^&]+)/);
+      if (m && m[1]) {
+        const id = decodeURIComponent(m[1]);
+        if (projectMap.has(id)) openProject(id, 0, false);
+      }
+    };
+    window.addEventListener("hashchange", () => {
+      const hash = window.location.hash || "";
+      if (!hash.startsWith("#project=") && projectModal.classList.contains("is-open")) {
+        closeProject(false);
+      } else if (hash.startsWith("#project=") && !projectModal.classList.contains("is-open")) {
+        openFromHash();
+      }
+    });
+    openFromHash();
   }
+
+  // Hero projects (правый блок): выбор проекта + открытие подробного просмотра
+  const heroMainBtn = document.querySelector(".hero-main-card.project-open");
+  const heroMainImg = heroMainBtn ? heroMainBtn.querySelector("img") : null;
+  const heroMainTitle = heroMainBtn ? heroMainBtn.querySelector(".hero-main-title") : null;
+  const heroMainSub = heroMainBtn ? heroMainBtn.querySelector(".hero-main-sub") : null;
+  const heroThumbBtns = document.querySelectorAll(".hero-thumb.project-select[data-project-id]");
+
+  const setHeroProject = (projectId) => {
+    const project = projectMap.get(projectId);
+    if (!project || !heroMainBtn || !heroMainImg || !heroMainTitle || !heroMainSub) return;
+
+    heroMainBtn.dataset.projectId = project.id;
+    heroMainImg.src = project.heroCover || project.media?.[0]?.src || heroMainImg.src;
+    heroMainImg.alt = project.heroAlt || safeText(project.title);
+    heroMainTitle.textContent = safeText(project.title);
+    heroMainSub.textContent = safeText(project.subtitle);
+
+    heroThumbBtns.forEach((b) => b.classList.toggle("is-active", b.dataset.projectId === project.id));
+  };
+
+  if (heroMainBtn && heroThumbBtns.length) {
+    // initial
+    const initialId = heroMainBtn.dataset.projectId || heroThumbBtns[0].dataset.projectId;
+    if (initialId) setHeroProject(initialId);
+
+    heroThumbBtns.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const id = btn.dataset.projectId;
+        if (id) setHeroProject(id);
+      });
+    });
+
+    heroMainBtn.addEventListener("click", () => {
+      const id = heroMainBtn.dataset.projectId;
+      if (id) openProject(id, 0, true);
+    });
+  }
+
 
   // Фильтрация портфолио и модальное окно
   const filterButtons = document.querySelectorAll("[data-portfolio-filter]");
@@ -268,51 +551,17 @@ if ("IntersectionObserver" in window && revealSections.length) {
     });
   }
 
-  const portfolioModal = document.getElementById("portfolioModal");
-  const modalImage = document.getElementById("portfolioModalImage");
-  const modalTitle = document.getElementById("portfolioModalTitle");
-  const modalText = document.getElementById("portfolioModalText");
-  const modalTags = document.getElementById("portfolioModalTags");
-
-  if (portfolioModal && portfolioCards.length) {
-    const openModal = (card) => {
-      const img = card.querySelector(".card-img-wrap img");
-      const titleEl = card.querySelector("h3");
-      const textEl = card.querySelector("p");
-      const tagsEl = card.querySelector(".card-tags");
-
-      if (img && modalImage) {
-        modalImage.src = img.src;
-        modalImage.alt = img.alt || "";
-      }
-      if (modalTitle) modalTitle.textContent = titleEl ? titleEl.textContent : "";
-      if (modalText) modalText.textContent = textEl ? textEl.textContent : "";
-      if (modalTags) modalTags.innerHTML = tagsEl ? tagsEl.innerHTML : "";
-
-      portfolioModal.classList.add("is-open");
-      document.body.classList.add("modal-open");
-    };
-
+  // Портфолио: клик по карточке → подробный просмотр (галерея/видео)
+  if (portfolioCards.length && projectModal) {
     portfolioCards.forEach((card) => {
-      card.addEventListener("click", () => openModal(card));
-    });
-
-    const closeModal = () => {
-      portfolioModal.classList.remove("is-open");
-      document.body.classList.remove("modal-open");
-    };
-
-    portfolioModal.addEventListener("click", (event) => {
-      const target = event.target;
-      if (target.matches("[data-portfolio-close]") || target === portfolioModal || target.classList.contains("portfolio-modal-backdrop")) {
-        closeModal();
-      }
-    });
-
-    document.addEventListener("keydown", (event) => {
-      if (event.key === "Escape" && portfolioModal.classList.contains("is-open")) {
-        closeModal();
-      }
+      card.addEventListener("click", () => {
+        const pid = card.getAttribute("data-project-id");
+        if (pid && projectMap.has(pid)) {
+          openProject(pid, 0, true);
+        } else {
+          openProject(buildFallbackProjectFromCard(card), 0, false);
+        }
+      });
     });
   }
 

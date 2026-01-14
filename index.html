@@ -108,28 +108,29 @@
         </div>
 
         <div class="hero-gallery">
-          <div class="hero-main-card">
-            <img src="images/kitchen-minimal.jpg" alt="Современная угловая кухня в светлых тонах" />
+          <button class="hero-main-card project-open" type="button" data-project-id="project-02" aria-label="Открыть проект: Встроенный шкаф во всю стену">
+            <img src="project-02/photo_3_2025-12-14_01-05-41.jpg" alt="Встроенный шкаф во всю стену в светлых тонах" />
             <div class="hero-main-gradient"></div>
             <div class="hero-main-info">
-              <div class="hero-main-title">Угловая кухня · светлый минимализм</div>
-              <div class="hero-main-sub">Квартира в Гомеле · удобное хранение, встроенная техника и аккуратный фартук под бетон.</div>
+              <div class="hero-main-title">Встроенный шкаф во всю стену</div>
+              <div class="hero-main-sub">Высота до потолка · максимум хранения и аккуратный внешний вид.</div>
             </div>
-          </div>
+          </button>
           <div class="hero-thumbs">
-            <div class="hero-thumb">
-              <img src="images/wardrobe-tall.jpg" alt="Высокий шкаф с матовыми фасадами" />
+            <button class="hero-thumb project-select" type="button" data-project-id="project-05">
+              <img src="project-05/photo_7_2025-12-14_01-08-12.jpg" alt="Шкаф до потолка с чёрными ручками" />
               <div class="hero-thumb-caption">Шкаф до потолка</div>
-            </div>
-            <div class="hero-thumb">
-              <img src="images/table-dark-loft.jpg" alt="Обеденный стол с металлическим основанием" />
-              <div class="hero-thumb-caption">Стол в стиле лофт</div>
-            </div>
-            <div class="hero-thumb">
-              <img src="images/wardrobe-led-shelves.jpg" alt="Шкаф с открытыми полками и подсветкой" />
-              <div class="hero-thumb-caption">Шкаф с подсветкой</div>
-            </div>
+            </button>
+            <button class="hero-thumb project-select" type="button" data-project-id="project-03">
+              <img src="project-03/photo_5_2025-12-14_01-06-52.jpg" alt="Прихожая со шкафом, вешалкой и сиденьем" />
+              <div class="hero-thumb-caption">Прихожая</div>
+            </button>
+            <button class="hero-thumb project-select" type="button" data-project-id="project-04">
+              <img src="project-04/photo_3_2025-12-14_01-07-19.jpg" alt="ТВ-тумба с подсветкой" />
+              <div class="hero-thumb-caption">ТВ-тумба с подсветкой</div>
+            </button>
           </div>
+        </div>
         </div>
       </div>
     </section>
@@ -152,258 +153,72 @@
           <button class="portfolio-filter-btn" type="button" data-portfolio-filter="kitchen">Кухни</button>
           <button class="portfolio-filter-btn" type="button" data-portfolio-filter="wardrobe">Шкафы и гардеробные</button>
           <button class="portfolio-filter-btn" type="button" data-portfolio-filter="hallway">Прихожие</button>
+          <button class="portfolio-filter-btn" type="button" data-portfolio-filter="living">Гостиная · ТВ-зона</button>
           <button class="portfolio-filter-btn" type="button" data-portfolio-filter="bathroom">Санузел и прачечные</button>
           <button class="portfolio-filter-btn" type="button" data-portfolio-filter="office">Рабочие зоны и столы</button>
         </div>
 
         <div class="grid portfolio-grid">
-          <article class="card" data-category="kitchen">
+          <article class="card" data-category="wardrobe" data-project-id="project-02">
             <div class="card-img-wrap">
-              <img src="images/kitchen-minimal.jpg" alt="Угловая кухня в светлых тонах" />
+              <img src="project-02/photo_3_2025-12-14_01-05-41.jpg" alt="Встроенный шкаф во всю стену в светлых тонах" />
             </div>
             <div class="card-body">
-              <h3>Угловая кухня · светлый минимализм</h3>
-              <p>Квартира в Гомеле. Спокойные фасады, встроенная техника, удобное хранение и продуманная зона готовки.</p>
+              <h3>Встроенный шкаф во всю стену</h3>
+              <p>Встроенный шкаф в светлых фасадах с длинными ручками. Высота до потолка, удобная организация внутри и чистая геометрия по всей плоскости.</p>
               <div class="card-tags">
-                <span>Кухня под ваш дом</span><span>Современный стиль</span>
+                <span>Шкаф до потолка</span><span>Длинные ручки</span>
               </div>
             </div>
           </article>
-
-          <article class="card" data-category="wardrobe">
+          <article class="card" data-category="wardrobe" data-project-id="project-05">
             <div class="card-img-wrap">
-              <img src="images/wardrobe-tall.jpg" alt="Высокий шкаф до потолка" />
+              <img src="project-05/photo_7_2025-12-14_01-08-12.jpg" alt="Шкаф до потолка с чёрными ручками" />
             </div>
             <div class="card-body">
-              <h3>Шкаф до потолка · идеальная геометрия</h3>
-              <p>Встроенный шкаф с матовыми фасадами. Максимум хранения без ощущения тяжести в комнате.</p>
+              <h3>Шкаф до потолка · чёрные ручки</h3>
+              <p>Шкаф с фасадами до потолка и контрастными чёрными ручками. Дополнительный верхний ряд модулей и аккуратные линии по всей плоскости.</p>
               <div class="card-tags">
-                <span>Встроенный шкаф</span><span>Минимализм</span>
+                <span>Шкаф</span><span>Контрастная фурнитура</span>
               </div>
             </div>
           </article>
-
-          <article class="card" data-category="bathroom">
+          <article class="card" data-category="hallway" data-project-id="project-03">
             <div class="card-img-wrap">
-              <img src="images/bath-vanity.jpg" alt="Тумба под раковину" />
+              <img src="project-03/photo_5_2025-12-14_01-06-52.jpg" alt="Прихожая со шкафом, вешалкой и сиденьем" />
             </div>
             <div class="card-body">
-              <h3>Тумба для ванной · премиум отделка</h3>
-              <p>Влагостойкие материалы, мягкое закрывание, аккуратная интеграция с раковиной и стиральной машиной.</p>
+              <h3>Прихожая · шкаф, вешалка и сиденье</h3>
+              <p>Комплект для прихожей: высокий шкаф, верхние модули, вешалка с крючками и сиденье с нишами для обуви. Максимум пользы на небольшом участке.</p>
               <div class="card-tags">
-                <span>Ванная</span><span>Влагостойкие решения</span>
+                <span>Прихожая</span><span>Хранение обуви</span>
               </div>
             </div>
           </article>
-
-          <article class="card" data-category="wardrobe">
+          <article class="card" data-category="living" data-project-id="project-04">
             <div class="card-img-wrap">
-              <img src="images/dresser-light-wood.jpg" alt="Комод из светлого дерева" />
+              <img src="project-04/photo_3_2025-12-14_01-07-19.jpg" alt="ТВ-тумба с подсветкой" />
             </div>
             <div class="card-body">
-              <h3>Комод · светлое дерево</h3>
-              <p>Комод с четырьмя ящиками. ЛДСП под светлый дуб, аккуратные ручки и ровные зазоры.</p>
+              <h3>ТВ-тумба с подсветкой</h3>
+              <p>ТВ-тумба в светлом исполнении с тёплой подсветкой по линии столешницы. Минималистичная геометрия, ровные фасады и аккуратные стыки.</p>
               <div class="card-tags">
-                <span>Система хранения</span><span>Светлые оттенки</span>
+                <span>ТВ-тумба</span><span>Подсветка</span>
               </div>
             </div>
           </article>
-
-          <article class="card" data-category="bathroom">
+          <article class="card" data-category="office" data-project-id="project-01">
             <div class="card-img-wrap">
-              <img src="images/wardrobe-narrow.jpg" alt="Узкий шкаф для хранения" />
+              <img src="project-01/photo_2_2025-12-14_01-04-00.jpg" alt="Рабочая зона у окна со шкафом и столом" />
             </div>
             <div class="card-body">
-              <h3>Узкий шкаф · хранение без лишнего</h3>
-              <p>Компактный шкаф для санузла или коридора. Максимум полок в узком формате.</p>
+              <h3>Рабочая зона у окна · шкаф + стол</h3>
+              <p>Компактная рабочая зона у окна: высокий шкаф для хранения и столешница по размеру помещения. Чистые линии, ровные зазоры, ничего лишнего.</p>
               <div class="card-tags">
-                <span>Компактные решения</span><span>Санузел</span>
+                <span>Минимализм</span><span>Рабочее место</span>
               </div>
             </div>
           </article>
-
-          <article class="card" data-category="bathroom">
-            <div class="card-img-wrap">
-              <img src="images/module-panel.jpg" alt="Модульный элемент мебели" />
-            </div>
-            <div class="card-body">
-              <h3>Модульный элемент · скрытое хранение</h3>
-              <p>Индивидуальный модуль под шкафную систему. Лаконичный внешний вид и продуманное наполнение.</p>
-              <div class="card-tags">
-                <span>Индивидуальный проект</span><span>Матовые фасады</span>
-              </div>
-            </div>
-          </article>
-
-          <article class="card" data-category="wardrobe">
-            <div class="card-img-wrap">
-              <img src="images/wardrobe-big.jpg" alt="Большой встроенный шкаф" />
-            </div>
-            <div class="card-body">
-              <h3>Большой шкаф · минимализм</h3>
-              <p>Встроенная система хранения вдоль стены. Ровные линии, удобный доступ к вещам.</p>
-              <div class="card-tags">
-                <span>Гардероб</span><span>Встроенная мебель</span>
-              </div>
-            </div>
-          </article>
-
-          <article class="card" data-category="wardrobe">
-            <div class="card-img-wrap">
-              <img src="images/wardrobe-with-drawers.jpg" alt="Шкаф и комод в одном комплексе" />
-            </div>
-            <div class="card-body">
-              <h3>Гардероб и комод в одном</h3>
-              <p>Шкаф для одежды и комод с ящиками в едином стиле. Чистый современный вид.</p>
-              <div class="card-tags">
-                <span>Комплексное решение</span><span>Коридор</span>
-              </div>
-            </div>
-          </article>
-
-          <article class="card" data-category="wardrobe">
-            <div class="card-img-wrap">
-              <img src="images/wardrobe-led-shelves.jpg" alt="Шкаф с подсветкой и открытыми полками" />
-            </div>
-            <div class="card-body">
-              <h3>Шкаф с подсветкой и открытыми полками</h3>
-              <p>Закрытые секции для хранения и открытые ниши с LED-подсветкой для декора.</p>
-              <div class="card-tags">
-                <span>LED-подсветка</span><span>Гостиная / прихожая</span>
-              </div>
-            </div>
-          </article>
-
-          <article class="card" data-category="office">
-            <div class="card-img-wrap">
-              <img src="images/table-dark-loft.jpg" alt="Обеденный стол на металлическом основании" />
-            </div>
-            <div class="card-body">
-              <h3>Обеденный стол · металл + текстура</h3>
-              <p>Большой стол с металлическим основанием. Устойчив, комфортен для семьи и гостей.</p>
-              <div class="card-tags">
-                <span>Стол под ваш интерьер</span><span>Стиль лофт</span>
-              </div>
-            </div>
-          </article>
-
-          <article class="card" data-category="office">
-            <div class="card-img-wrap">
-              <img src="images/desk-corner.jpg" alt="Угловой компьютерный стол" />
-            </div>
-            <div class="card-body">
-              <h3>Угловой компьютерный стол</h3>
-              <p>Рабочая станция с тумбой и нишей под системный блок. Всё под рукой и ничего лишнего.</p>
-              <div class="card-tags">
-                <span>Рабочее место</span><span>Домашний кабинет</span>
-              </div>
-            </div>
-          </article>
-
-          <article class="card" data-category="kitchen">
-            <div class="card-img-wrap">
-              <img src="images/table-white-transform.jpg" alt="Раздвижной белый стол" />
-            </div>
-            <div class="card-body">
-              <h3>Раздвижной белый стол</h3>
-              <p>Компактный стол-трансформер. Удобен для кухонь и небольших гостиных.</p>
-              <div class="card-tags">
-                <span>Стол-трансформер</span><span>Светлый интерьер</span>
-              </div>
-            </div>
-          </article>
-
-          <article class="card" data-category="hallway">
-            <div class="card-img-wrap">
-              <img src="images/corner-shelves.jpg" alt="Угловые открытые полки" />
-            </div>
-            <div class="card-body">
-              <h3>Угловые открытые полки</h3>
-              <p>Функциональный модуль с открытыми полками и закрытым хранением. Использует угол комнаты на 100%.</p>
-              <div class="card-tags">
-                <span>Декоративное хранение</span><span>Индивидуальный дизайн</span>
-              </div>
-            </div>
-          </article>
-
-          <article class="card" data-category="office">
-            <div class="card-img-wrap">
-              <img src="images/desk-white.jpg" alt="Белый письменный стол" />
-            </div>
-            <div class="card-body">
-              <h3>Письменный стол · лаконичный дизайн</h3>
-              <p>Небольшой письменный стол с выдвижным ящиком. Подходит для детской или компактного кабинета.</p>
-              <div class="card-tags">
-                <span>Письменный стол</span><span>Минимализм</span>
-              </div>
-            </div>
-          </article>
-
-          <article class="card" data-category="bathroom">
-            <div class="card-img-wrap">
-              <img src="images/cabinet-toilet.jpg" alt="Встроенный шкаф над инсталляцией" />
-            </div>
-            <div class="card-body">
-              <h3>Встроенный шкаф над инсталляцией</h3>
-              <p>Аккуратный сантехнический шкаф: коммуникации скрыты, доступ к ревизии сохранён.</p>
-              <div class="card-tags">
-                <span>Санузел</span><span>Скрытое хранение</span>
-              </div>
-            </div>
-          </article>
-
-          <article class="card" data-category="wardrobe">
-            <div class="card-img-wrap">
-              <img src="images/portfolio-white-wardrobe-1.jpg" alt="Белый шкаф до потолка в коридоре" />
-            </div>
-            <div class="card-body">
-              <h3>Белый шкаф до потолка</h3>
-              <p>Встроенная система хранения от стены до стены. Ровные зазоры, скрытые цоколи и аккуратная посадка к потолку.</p>
-              <div class="card-tags">
-                <span>Встроенный шкаф</span><span>Коридор</span><span>Светлый интерьер</span>
-              </div>
-            </div>
-          </article>
-
-          <article class="card" data-category="hallway">
-            <div class="card-img-wrap">
-              <img src="images/portfolio-hall-wardrobe-bench.jpg" alt="Прихожая со шкафом и мягкой скамьёй" />
-            </div>
-            <div class="card-body">
-              <h3>Прихожая со шкафом и мягкой скамьёй</h3>
-              <p>Угловое решение: высокие шкафы, мягкое сиденье и рейки для верхней одежды. Всё продумано для ежедневного использования.</p>
-              <div class="card-tags">
-                <span>Прихожая</span><span>Скамья</span><span>Угловое решение</span>
-              </div>
-            </div>
-          </article>
-
-          <article class="card" data-category="wardrobe">
-            <div class="card-img-wrap">
-              <img src="images/portfolio-corner-wardrobe-desk.jpg" alt="Угловой шкаф с рабочим столом" />
-            </div>
-            <div class="card-body">
-              <h3>Угловой шкаф с рабочим столом</h3>
-              <p>Шкаф с распашными фасадами и интегрированным столом у окна. Удобно для детской или домашнего кабинета.</p>
-              <div class="card-tags">
-                <span>Шкаф</span><span>Рабочее место</span><span>Детская</span>
-              </div>
-            </div>
-          </article>
-
-          <article class="card" data-category="bathroom">
-            <div class="card-img-wrap">
-              <img src="images/portfolio-laundry-cabinet.jpg" alt="Система хранения вокруг стиральной машины" />
-            </div>
-            <div class="card-body">
-              <h3>Система хранения в прачечной зоне</h3>
-              <p>Шкаф вокруг стиральной машины: высокие фасады, практичные открытые ниши и место под корзины.</p>
-              <div class="card-tags">
-                <span>Прачечная</span><span>Санузел</span><span>Скрытое хранение</span>
-              </div>
-            </div>
-          </article>
-
         </div>
       </div>
     </section><section id="ar" data-reveal class="section section-ar" data-reveal>
@@ -828,6 +643,60 @@
 
 </div>
 
+<div class="project-modal" id="projectModal" aria-hidden="true">
+    <div class="project-modal-backdrop" data-project-close></div>
+
+    <div class="project-modal-inner" role="dialog" aria-modal="true" aria-label="Просмотр проекта">
+      <button class="project-modal-close" type="button" data-project-close aria-label="Закрыть просмотр проекта">×</button>
+
+      <div class="project-modal-header">
+        <div class="project-modal-headings">
+          <div class="project-modal-kicker" id="projectModalKicker"></div>
+          <h3 id="projectModalTitle"></h3>
+          <p class="project-modal-sub" id="projectModalSub"></p>
+        </div>
+        <button class="section-cta project-modal-cta" type="button" data-scroll="#contacts" data-project-close>Обсудить проект →</button>
+      </div>
+
+      <div class="project-modal-layout">
+        <div class="project-modal-media">
+          <div class="project-stage">
+            <img src="" alt="" id="projectModalImage" />
+            <video id="projectModalVideo" controls playsinline preload="metadata"></video>
+
+            <button class="project-nav project-nav-prev" type="button" aria-label="Предыдущий кадр">‹</button>
+            <button class="project-nav project-nav-next" type="button" aria-label="Следующий кадр">›</button>
+          </div>
+
+          <div class="project-thumbs" id="projectModalThumbs" aria-label="Миниатюры проекта"></div>
+        </div>
+
+        <div class="project-modal-content">
+          <div class="project-modal-desc" id="projectModalDesc"></div>
+          <div class="project-modal-tags" id="projectModalTags"></div>
+
+          <div class="project-modal-specs">
+            <div class="project-modal-specs-title">Детали</div>
+            <ul class="project-modal-specs-list" id="projectModalSpecs"></ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+<footer>
+    <div class="container footer-inner">
+      <span>© <span id="year"></span> Mebel Line · мебель, Гомель.</span>
+      <span>Живая мастерская без лишней витрины.</span>
+    </div>
+  </footer>
+
+  <button class="scroll-top" id="scrollTopBtn" aria-label="Подняться наверх">↑</button>
+
+</div>
+
+<script src="js/projects-data.js"></script>
 <script src="js/script.js"></script>
 </body>
 </html>

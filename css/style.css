@@ -2065,3 +2065,316 @@ body.dark .estimate-result {
   font-size: 13px;
   opacity: 0.88;
 }
+
+ranslateY(-2px);
+  filter: saturate(1.05);
+}
+
+button.hero-thumb.is-active {
+  box-shadow: 0 18px 44px rgba(15, 23, 42, 0.16);
+  outline: 2px solid var(--accent-soft);
+  outline-offset: 2px;
+}
+
+/* --- Project modal (gallery + video) ------------------------------------- */
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.project-modal {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  background: rgba(15, 23, 42, 0.6);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+  z-index: 50;
+}
+
+.project-modal.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.project-modal-backdrop {
+  position: absolute;
+  inset: 0;
+}
+
+.project-modal-inner {
+  position: relative;
+  max-width: 1120px;
+  width: 100%;
+  border-radius: 26px;
+  border: 1px solid var(--border-soft);
+  background: radial-gradient(circle at 0 0, rgba(148, 163, 184, 0.14), transparent 55%),
+              var(--bg-elevated);
+  box-shadow: 0 35px 80px rgba(15, 23, 42, 0.85);
+  padding: 18px 18px 20px;
+}
+
+body.dark .project-modal-inner {
+  background: radial-gradient(circle at 0 0, rgba(148, 163, 184, 0.16), transparent 55%),
+              #020617;
+}
+
+.project-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+
+.project-modal-kicker {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+}
+
+.project-modal-headings h3 {
+  margin: 0 0 6px;
+  letter-spacing: -0.01em;
+}
+
+.project-modal-sub {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 13px;
+  max-width: 560px;
+}
+
+.project-modal-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr);
+  gap: 18px;
+}
+
+.project-modal-media {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.project-stage {
+  position: relative;
+  border-radius: 22px;
+  overflow: hidden;
+  background: #0b1220;
+}
+
+body:not(.dark) .project-stage {
+  background: #0f172a;
+}
+
+#projectModalImage,
+#projectModalVideo {
+  width: 100%;
+  max-height: 72vh;
+  display: block;
+  object-fit: cover;
+}
+
+#projectModalVideo {
+  display: none;
+}
+
+.project-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  border: 1px solid rgba(148, 163, 184, 0.55);
+  background: rgba(15, 23, 42, 0.55);
+  color: #f9fafb;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  font-size: 18px;
+  line-height: 1;
+  backdrop-filter: blur(10px);
+}
+
+.project-nav:hover {
+  background: rgba(15, 23, 42, 0.8);
+}
+
+.project-nav-prev { left: 10px; }
+.project-nav-next { right: 10px; }
+
+.project-thumbs {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding: 2px 2px 4px;
+  scrollbar-width: thin;
+}
+
+.project-thumb {
+  flex: 0 0 auto;
+  width: 86px;
+  height: 60px;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  background: rgba(15, 23, 42, 0.08);
+  cursor: pointer;
+  padding: 0;
+  position: relative;
+}
+
+.project-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.project-thumb.is-active {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+.project-thumb.is-video {
+  display: grid;
+  place-items: center;
+  background: rgba(15, 23, 42, 0.18);
+}
+
+.project-thumb-play {
+  width: 30px;
+  height: 30px;
+  border-radius: 999px;
+  border: 1px solid rgba(148, 163, 184, 0.6);
+  background: rgba(15, 23, 42, 0.55);
+  display: grid;
+  place-items: center;
+}
+
+.project-thumb-play::before {
+  content: "";
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 8px 0 8px 12px;
+  border-color: transparent transparent transparent #f9fafb;
+  margin-left: 2px;
+}
+
+.project-modal-content {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-top: 2px;
+}
+
+.project-modal-desc {
+  color: var(--text-main);
+  font-size: 14px;
+}
+
+.project-modal-tags span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.08);
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  font-size: 12px;
+  margin-right: 6px;
+  margin-bottom: 6px;
+}
+
+body.dark .project-modal-tags span {
+  background: rgba(15, 23, 42, 0.8);
+  border-color: rgba(148, 163, 184, 0.5);
+}
+
+.project-modal-specs {
+  border-radius: 18px;
+  background: var(--bg-soft);
+  border: 1px solid var(--border-soft);
+  padding: 12px 12px 10px;
+}
+
+.project-modal-specs-title {
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
+.project-modal-specs-list {
+  margin: 0;
+  padding-left: 18px;
+  color: var(--text-muted);
+  font-size: 13px;
+  display: grid;
+  gap: 6px;
+}
+
+.project-modal-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  border: 1px solid rgba(148, 163, 184, 0.45);
+  background: rgba(15, 23, 42, 0.12);
+  color: var(--text-main);
+  cursor: pointer;
+  font-size: 20px;
+  line-height: 1;
+  display: grid;
+  place-items: center;
+}
+
+body.dark .project-modal-close {
+  background: rgba(15, 23, 42, 0.9);
+  color: #f9fafb;
+}
+
+.project-modal-close:hover {
+  background: var(--text-main);
+  color: var(--bg-elevated);
+}
+
+.project-thumb:focus-visible,
+.project-nav:focus-visible,
+.project-modal-close:focus-visible,
+button.hero-thumb:focus-visible,
+button.hero-main-card:focus-visible {
+  outline: 3px solid var(--accent-soft);
+  outline-offset: 2px;
+}
+
+@media (max-width: 900px) {
+  .project-modal-layout {
+    grid-template-columns: 1fr;
+  }
+
+  #projectModalImage,
+  #projectModalVideo {
+    max-height: 60vh;
+  }
+}
